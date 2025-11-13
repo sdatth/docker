@@ -9,6 +9,7 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
+      #- "88:80" #use it only when traefik is not configured
     environment:
       TZ: "Asia/Kolkata"
     volumes:

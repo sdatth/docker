@@ -1,0 +1,150 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+# https://github.com/walkxcode/dashboard-icons/tree/main (for icons)
+
+- Administration:
+    - Portainer:
+        href: https://port.srv.example.com/
+        description: Container Orchestration
+        icon: portainer.svg  
+ #   - Syncthing:
+ #       href: https://sync.rpi.example.com/
+ #       description: Synchronization Tool 
+ ##       icon: syncthing
+    - Pihole:
+        href: https://pihole.srv.example.com/admin
+        description: DNS Resolver & Ad Block 
+        icon: pi-hole.svg  
+    - Traefik:
+        href: https://traefik.srv.example.com/
+        description: Reverse Proxy 
+        icon: traefik.svg  
+ 
+#- Apps:
+   # - Pangolin:
+   #     href: https://dash.dev.example.com/
+   #     description: Tunnel Dashboard
+   #     icon: 1password-dark.png  
+   # - Guacamole:
+   #     href: https://box.srv.example.com:91/guacamole
+   #     description: Shell Box
+   #     icon: guacamole.png  
+   # - Nginx:
+   #     href: https://n.dev.example.com/
+   #     description: Site
+   #     icon: docker-mailserver.svg  
+    #- Local:
+    #    href: https://ln.dev.example.com/
+    #    description: Nginx
+    #    icon: docker-moby.svg  
+
+
+#- Tools:
+ # #- Nginx:
+ # #      href: https://site.rpi.example.com/
+ # #      description: Nginx Container 
+ # #      icon: nginx.svg  
+ #   - Librespeed:
+ #       href: https://speed.rpi.example.com/
+ #       description: Speedtest
+ #       icon: librespeed.svg  
+ #   - Kuma:
+ #       href: https://kuma.rpi.example.com/
+ #       description: Monitoring tool 
+ #       icon: uptime-kuma.svg  
+ #   - Authelia:
+ #       href: https://auth.rpi.example.com/
+ #       description: Authenticator 
+ #       icon: authelia.svg  
+ #   - Speedtracker:
+ #       href: https://tracker.rpi.example.com/
+ #       description: Speed Analytics 
+ #       icon: openspeedtest.png  
+ #   
+ #- Applications:
+ #   - Vaultwarden:
+ #       href: https://vault.rpi.example.com/
+ #       description: Password Manager 
+ #       icon: bitwarden.svg  
+ #   - Memos:
+ #       href: https://memos.rpi.example.com/auth
+ #       description: Memos 
+ #       icon: memos.png  
+ #   - Nextcloud:
+ #       href: https://docs.rpi.example.com/
+ #       description: RPI drive 
+ #       icon: nextcloud-blue.svg  
+ #   - Filebrowser:
+ #       href: https://fb.rpi.example.com/
+ #       description: File Manager 
+ #       icon: filebrowser.svg  
+ #         #- Homer:
+ #         # href: https://home.rpi.example.com/
+ #         #  description: Simple Homepage 
+ #         # icon: homer.svg  
+
+#- Server:
+#    - Proxmox:
+#        href: https://pve.deb.example.com/
+#        description: Hypervisor
+#        icon: proxmox.svg  
+#    - Pfsense:
+#        href: https://pfsense.deb.example.com/
+#        description: Firewall 
+#        icon: pfsense.png  
+#    - Opnsense:
+#        href: https://opnsense.deb.example.com/
+#        description: Network playground 
+#        icon: opnsense.svg  
+#    - Truenas#:
+#        href: https://nas.deb.example.com/
+#        description: NAS Box 
+#        icon: truenas.svg  
+#    - Openmediavault:
+#        href: https://omv.rpi.example.com/
+#        description: OMV NAS
+#        icon: openmediavault.svg  
+
+#- Authentik:          
+#    - Authentik:
+#        href: https://auth.deb.example.com/
+#        description: Debian Server 
+#        icon: authentik.png  
+#    - Authentik:
+#        href: https://auth.w.example.com/
+#        description: Web Server 
+#        icon: authentik.png  
+#    - Authentik:
+#        href: https://auth.example.com/
+#        description: Web Public Server 
+#        icon: authentik.png  
+
+#- Extra:
+#    - Backup Server:
+#        href: https://pbs.deb.example.com/
+#        description: Proxmox Backup Server
+#        icon: proxmox.svg  
+#    - NTOPng:
+#        href: https://ntop.deb.example.com/
+#        description: Network Monitor
+#        icon: ntop.png 
+
+#- Debian:
+#    - Portainer:
+#        href: https://port.deb.example.com
+#        description: Portainer Container 
+#        icon: portainer.svg  
+#    - Nginx: 
+#        href: https://site.deb.example.com/
+#        description: Nginx Container 
+#        icon: nginx.svg  
+#          # - Photoprism:
+#          # href: https://prism.deb.example.com/
+#          # description: Prism Container 
+#          # icon: photoprism.svg  
+#    - Traefik:
+#        href: https://traefik.deb.example.com/
+#        description: Traefik Container 
+#        icon: traefik.svg  
+
