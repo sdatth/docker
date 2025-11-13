@@ -1,0 +1,27 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    environment:
+      TZ: "Asia/Kolkata"
+    volumes:
+      - "./config:/etc/pihole"
+      - "./dnsmasq:/etc/dnsmasq.d"
+    cap_add:
+      - SYS_NICE
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.entrypoints=http, https"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.server.example.com`)"
+      - "traefik.http.routers.pihole.tls=true"
+      - "traefik.http.routers.pihole.service=pihole"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
