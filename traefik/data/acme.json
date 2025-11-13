@@ -1,0 +1,1 @@
+#this is where the certificates reside when traefik generates them, make sure to empty this content and the permissions are set to "600" 
