@@ -1,0 +1,54 @@
+networks:
+  dns_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.88.0.0/24
+  proxy:
+    external: true
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    environment:
+      TZ: "Asia/Kolkata"
+      FTLCONF_dns_listeningMode: "all"
+      FTLCONF_misc_etc_dnsmasq_d: "true"
+      PIHOLE_DNS_: "172.88.0.8#5053"
+    volumes:
+      - "./config:/etc/pihole"
+      - "./dnsmasq:/etc/dnsmasq.d"
+    cap_add:
+      - SYS_NICE
+    restart: always
+    networks:
+      dns_net:
+        ipv4_address: 172.88.0.7
+      proxy:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.entrypoints=http, https"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.server.example.com`)"
+      - "traefik.http.routers.pihole.tls=true"
+      - "traefik.http.routers.pihole.service=pihole"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
+
+  unbound:
+    container_name: unbound
+    image: mvance/unbound:latest
+    networks:
+      dns_net:
+        ipv4_address: 172.88.0.8
+    volumes:
+      - ./unbound:/opt/unbound/etc/unbound
+    ports:
+      - "5053:53/tcp"
+      - "5053:53/udp"
+    healthcheck:
+      test: ["NONE"]
+    restart: unless-stopped
