@@ -1,0 +1,14 @@
+server {
+    listen 80 default_server;
+
+    location / {
+        default_type text/plain;
+
+        return 200
+"Server Hostname : ${HOST_HOSTNAME}
+Public Server IP: ${PUBLIC_IP}
+Client IP       : $remote_addr
+";
+    }
+}
+

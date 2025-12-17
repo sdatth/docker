@@ -1,0 +1,8 @@
+services:
+  nginx:
+    image: nginxmod:latest
+    container_name: nginx
+    restart: unless-stopped
+    environment:
+      HOST_HOSTNAME: "Germany Server"  
+
