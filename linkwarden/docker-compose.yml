@@ -1,0 +1,49 @@
+networks:
+  proxy:
+    external: true
+  link:
+    external: false
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file: stack.env
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - link
+
+  linkwarden:
+    env_file: stack.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+    restart: always
+    image: ghcr.io/linkwarden/linkwarden:latest
+    container_name: linkwarden
+    volumes:
+      - ./data:/data/data
+    depends_on:
+      - postgres
+      - meilisearch
+    networks:
+      - link
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.linkwarden.entrypoints=http, https"
+      - "traefik.http.routers.linkwarden.rule=Host(`link.server.example.com`)"
+      - "traefik.http.routers.linkwarden.tls=true"
+      - "traefik.http.routers.linkwarden.service=linkwarden"
+      - "traefik.http.services.linkwarden.loadbalancer.server.port=3000"
+      - "traefik.docker.network=proxy"
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12.8
+    restart: always
+    env_file:
+      - stack.env
+    volumes:
+      - ./meili_data:/meili_data
+    networks:
+      - link
