@@ -1,11 +1,26 @@
 Under ./data/config/config.php make sure these lines are there
 
-For port 91
-'overwriteprotocol' => 'https',
-'overwritehost' => 'nextcloud.example.com:91',
-'overwrite.cli.url' => 'https://nextcloud.example.com:91',
+'trusted_domains' =>
+  array (
+    0 => 'nc.home.example.com',
+    1 => 'nc.home.example.com:91',
+    2 => 'nc.www.example.com',
+  ),
 
-For port 443
+'trusted_proxies' =>
+  array (
+    0 => 'traefik',
+    1 => 'pangolin',
+  ),
+
+'forwarded_for_headers' =>
+  array (
+    0 => 'HTTP_X_FORWARDED_FOR',
+    1 => 'HTTP_X_FORWARDED_PROTO',
+    2 => 'HTTP_X_FORWARDED_HOST',
+  ),
+
 'overwriteprotocol' => 'https',
-'overwritehost' => 'nextcloud.example.com',
-'overwrite.cli.url' => 'https://nextcloud.example.com:443',
+
+// IMPORTANT: remove overwritehost
+// IMPORTANT: remove overwrite.cli.url
