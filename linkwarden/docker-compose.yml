@@ -31,7 +31,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.linkwarden.entrypoints=http, https"
+      - "traefik.http.routers.linkwarden.entrypoints=https"
       - "traefik.http.routers.linkwarden.rule=Host(`link.server.example.com`)"
       - "traefik.http.routers.linkwarden.tls=true"
       - "traefik.http.routers.linkwarden.service=linkwarden"

@@ -19,7 +19,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.adguard.entrypoints=http, https"
+      - "traefik.http.routers.adguard.entrypoints=https"
       - "traefik.http.routers.adguard.rule=Host(`guard.server.example.com`)"
       - "traefik.http.routers.adguard.tls=true"
       - "traefik.http.routers.adguard.service=adguard"

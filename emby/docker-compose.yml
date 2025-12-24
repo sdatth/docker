@@ -14,7 +14,7 @@ services:
     network_mode: "container:gluetun"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.emby.entrypoints=http, https"
+      - "traefik.http.routers.emby.entrypoints=https"
       - "traefik.http.routers.emby.rule=Host(`emby.server.example.com`)"
       - "traefik.http.routers.emby.tls=true"
       - "traefik.http.routers.emby.service=emby"

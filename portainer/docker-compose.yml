@@ -16,7 +16,7 @@ services:
       - ./data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.portainer.entrypoints=http, https"
+      - "traefik.http.routers.portainer.entrypoints=https"
       - "traefik.http.routers.portainer.rule=Host(`port.server.example.com`)"
       - "traefik.http.routers.portainer.tls=true"
       - "traefik.http.routers.portainer.service=portainer"

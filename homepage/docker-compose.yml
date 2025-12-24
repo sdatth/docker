@@ -15,7 +15,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homepage.entrypoints=http, https"
+      - "traefik.http.routers.homepage.entrypoints=https"
       - "traefik.http.routers.homepage.rule=Host(`server.example.com`)"
       - "traefik.http.routers.homepage.tls=true"
       - "traefik.http.routers.homepage.service=homepage"
