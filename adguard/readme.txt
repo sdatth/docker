@@ -7,7 +7,7 @@ edit /opt/adguardhome/conf/AdGuardHome.yaml, make sure these values are same
 
 <
 trusted_proxies:
-  - 172.16.0.0/12
+  - 172.16.0.0/12   #make sure this entry is there with others
 
 tls:
   enabled: true
@@ -15,3 +15,7 @@ tls:
 >
 
 The URL for DOH requests would be "https://guard.server.example.com/dns-query"
+
+To test on mac use "doggo" tool, you should see ip address of the requested domain
+
+doggo google.com @https://guard.server.example.com/dns-query
