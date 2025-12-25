@@ -1,0 +1,28 @@
+$TTL 1d
+$ORIGIN example.com.
+
+@               IN      SOA     ns.example.com. info.example.com. (
+                                2512202500      ; serial DDMMYYYYXX
+                                12h             ; refresh
+                                15m             ; retry
+                                3w              ; expire
+                                2h              ; minimum ttl
+                                )
+
+                IN      NS      ns.example.com.
+
+ns              IN      A       10.68.218.1
+
+; -- add dns records below
+
+; server records
+srv             IN      A       10.68.218.1
+*.srv           IN      A       10.68.218.1
+
+; router records
+pf              IN      A       10.75.1.1
+*.pf            IN      A       10.75.1.1
+
+; rpi records
+r               IN      A       10.75.10.53
+*.r             IN      A       10.75.10.53

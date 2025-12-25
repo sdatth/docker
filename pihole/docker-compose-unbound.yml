@@ -3,7 +3,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.88.0.0/24
+        - subnet: 192.168.10.0/24
   proxy:
     external: true
 
@@ -18,7 +18,7 @@ services:
       TZ: "Asia/Kolkata"
       FTLCONF_dns_listeningMode: "all"
       FTLCONF_misc_etc_dnsmasq_d: "true"
-      PIHOLE_DNS_: "172.88.0.8#5053"
+      PIHOLE_DNS_: "192.168.10.11#5053"
     volumes:
       - "./config:/etc/pihole"
       - "./dnsmasq:/etc/dnsmasq.d"
@@ -27,7 +27,7 @@ services:
     restart: always
     networks:
       dns_net:
-        ipv4_address: 172.88.0.7
+        ipv4_address: 192.168.10.10
       proxy:
     labels:
       - "traefik.enable=true"
@@ -43,7 +43,7 @@ services:
     image: mvance/unbound:latest
     networks:
       dns_net:
-        ipv4_address: 172.88.0.8
+        ipv4_address: 192.168.10.11
     volumes:
       - ./unbound:/opt/unbound/etc/unbound
     ports:

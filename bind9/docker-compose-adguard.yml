@@ -1,0 +1,49 @@
+networks:
+  dns_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+  proxy:
+    external: true
+
+services:
+  bind9:
+    container_name: bind9
+    image: ubuntu/bind9:latest
+    environment:
+      - BIND9_USER=root
+      - TZ=Asia/Kolkata
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - ./config:/etc/bind
+      - ./cache:/var/cache/bind
+      - ./records:/var/lib/bind
+    restart: unless-stopped
+    networks:
+      dns_network:
+        ipv4_address: 192.168.10.10
+
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: unless-stopped
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+    environment:
+      - TZ=Asia/Kolkata
+    networks:
+      dns_network:
+        ipv4_address: 192.168.10.11
+      proxy:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adguard.entrypoints=https"
+      - "traefik.http.routers.adguard.rule=Host(`guard.server.example.com`)"
+      - "traefik.http.routers.adguard.tls=true"
+      - "traefik.http.routers.adguard.service=adguard"
+      - "traefik.http.services.adguard.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
