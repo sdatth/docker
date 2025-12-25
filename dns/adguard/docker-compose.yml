@@ -1,0 +1,28 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000" # remove this after initial setup
+    volumes:
+      - ./adguard/work:/opt/adguardhome/work
+      - ./adguard/conf:/opt/adguardhome/conf
+    environment:
+      - TZ=Asia/Kolkata
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adguard.entrypoints=https"
+      - "traefik.http.routers.adguard.rule=Host(`guard.server.example.com`)"
+      - "traefik.http.routers.adguard.tls=true"
+      - "traefik.http.routers.adguard.service=adguard"
+      - "traefik.http.services.adguard.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
