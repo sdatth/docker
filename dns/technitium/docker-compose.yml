@@ -1,0 +1,29 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  technitium:
+    container_name: technitium
+    hostname: dns.server.example.com
+    image: technitium/dns-server:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    restart: unless-stopped
+    volumes:
+      - ./config:/etc/dns
+    environment:
+      - DNS_SERVER_DOMAIN=dns.server.example.com
+    networks:
+      - proxy
+    sysctls:
+      - net.ipv4.ip_local_port_range=1024 65535
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.technitium.entrypoints=https"
+      - "traefik.http.routers.technitium.rule=Host(`dns.server.example.com`)"
+      - "traefik.http.routers.technitium.tls=true"
+      - "traefik.http.routers.technitium.service=technitium"
+      - "traefik.http.services.technitium.loadbalancer.server.port=5380"
+      - "traefik.docker.network=proxy"
