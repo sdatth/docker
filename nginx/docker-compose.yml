@@ -5,4 +5,6 @@ services:
     restart: unless-stopped
     environment:
       HOST_HOSTNAME: "Germany Server"  
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
 
