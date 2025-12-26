@@ -1,0 +1,17 @@
+---
+###############################################################
+#                         Users Database                      #
+###############################################################
+
+# This file can be used if you do not have an LDAP set up.
+
+# List of users
+users:
+  admin:
+    disabled: false
+    displayname: "Admin User"
+    password: "<password-hash>"
+    email: admin@server.example.com
+    groups:
+      - admins
+      - dev

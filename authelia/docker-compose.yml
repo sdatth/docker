@@ -1,0 +1,32 @@
+networks:
+  proxy:
+    external: true
+services:
+  authelia:
+    container_name: "authelia"
+    image: "authelia/authelia:latest"
+    restart: "unless-stopped"
+    ports:
+      - 9091:9091
+    healthcheck:
+      disable: true
+    networks:
+      - proxy
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - "./config:/config"
+    environment:
+      - X_AUTHELIA_CONFIG_FILTERS=template
+      - TZ=Asia/Kolkata
+      - DOMAIN=auth.server.example.com
+      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET=''
+      - AUTHELIA_SESSION_SECRET=''
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY=''
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.authelia.rule=Host(`auth.server.example.com`)"
+      - "traefik.http.routers.authelia.entrypoints=https"
+      - "traefik.http.routers.authelia.tls=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.services.authelia.loadbalancer.server.port=9091"

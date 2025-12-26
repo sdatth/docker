@@ -1,8 +1,6 @@
 http:
-
   # region routers
   routers:
-
     opnsense:
       entryPoints:
         - "http"
@@ -14,10 +12,8 @@ http:
       tls: {}
       service: opnsense
 
-
   # region services
   services:
-
     opnsense:
       loadBalancer:
         servers:

@@ -1,0 +1,82 @@
+---
+###############################################################
+#                   Authelia configuration                    #
+###############################################################
+
+server:
+  address: "tcp://:9091"
+
+theme: "dark"
+
+log:
+  level: "debug"
+
+totp: # Time-based One-Time Password
+  issuer: authelia.com
+  period: 30
+  digits: 6
+  algorithm: "sha1"
+  skew: 1
+
+authentication_backend:
+  file:
+    path: "/config/users_database.yml"
+    password:
+      algorithm: "argon2id"
+      iterations: 3
+      key_length: 32
+      salt_length: 16
+      parallelism: 4
+      memory: 256
+
+password_policy:
+  # The standard policy allows you to tune individual settings manually.
+  standard:
+    enabled: false # TODO: Choose ONE policy to enable, not both.
+    min_length: 8
+    max_length: 0
+    require_uppercase: true
+    require_lowercase: true
+    require_number: true
+    require_special: true
+  # zxcvbn is a well known and used password strength algorithm. It does not have tunable settings.
+  zxcvbn:
+    enabled: false # TODO: Choose ONE policy to enable, not both.
+    min_score: 3
+
+access_control:
+  default_policy: "deny"
+  rules:
+    # bypass rule
+    - domain:
+        - "auth.server.example.com"
+      policy: "bypass"
+    # two factor login - catch all
+    - domain:
+        - "traefik.server.example.com"
+        # - '*.{{ env "DOMAIN" }}'
+      policy: "one_factor"
+
+session:
+  name: "authelia_session"
+  expiration: "1h"
+  inactivity: "5m"
+  remember_me: "1M"
+  cookies:
+    - domain: "server.example.com"
+      authelia_url: "https://auth.server.example.com:443"
+      same_site: "lax"
+
+regulation:
+  max_retries: 3
+  find_time: "2m"
+  ban_time: "30m"
+
+storage:
+  local:
+    path: "/config/db.sqlite3"
+
+notifier:
+  disable_startup_check: false
+  filesystem:
+    filename: /config/notification.txt
