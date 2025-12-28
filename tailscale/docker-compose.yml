@@ -1,0 +1,46 @@
+configs:
+  ts-serve:
+    content: |
+      {"TCP":{"443":{"HTTPS":true}},
+      "Web":{"$${TS_CERT_DOMAIN}:443":
+          {"Handlers":{"/":
+          {"Proxy":"http://192.168.20.11:80"}}}},
+      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":false}}
+
+networks:
+  ts_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.20.0/24
+
+services:
+  ts-test:
+    image: tailscale/tailscale:latest
+    container_name: ts-test
+    hostname: ts-test
+    environment:
+      - TS_AUTHKEY=<paste-oauth-key-here>?ephemeral=true
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=true
+      - TS_SERVE_CONFIG=/config/serve.json
+    volumes:
+      - ./state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+    restart: unless-stopped
+    configs:
+      - source: ts-serve
+        target: /config/serve.json
+    networks:
+      ts_network:
+        ipv4_address: 192.168.20.10
+
+  nginx:
+    image: nginx
+    networks:
+      ts_network:
+        ipv4_address: 192.168.20.11
