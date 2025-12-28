@@ -22,7 +22,7 @@ services:
     environment:
       - TZ=Asia/Kolkata
     networks:
-      dns_net:
+      dns_network:
         ipv4_address: 192.168.10.11
       proxy:
     labels:
