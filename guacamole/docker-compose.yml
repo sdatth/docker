@@ -27,7 +27,7 @@ services:
     image: guacamole/guacd:latest
     networks:
       - guacnetwork
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./drive:/drive:rw
       - ./record:/record:rw
@@ -78,7 +78,7 @@ services:
       - "traefik.http.routers.guacamole.service=guacamole"
       - "traefik.http.services.guacamole.loadbalancer.server.port=8080"
       - "traefik.docker.network=proxy"
-    restart: always
+    restart: unless-stopped
 
 networks:
   guacnetwork:
