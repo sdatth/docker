@@ -56,6 +56,10 @@ access_control:
         - "traefik.server.example.com"
         # - '*.{{ env "DOMAIN" }}'
       policy: "one_factor"
+    - domain:
+        - "logs.server.example.com"
+        # - '*.{{ env "DOMAIN" }}'
+      policy: "one_factor"
 
 session:
   name: "authelia_session"
